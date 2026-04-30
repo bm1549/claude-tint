@@ -8,7 +8,7 @@ A Claude Code plugin that tints your terminal background based on what Claude is
 | **Question** | `#3e3825` (yellow) | Claude is calling `AskUserQuestion` and waiting on you |
 | **Idle** | terminal default | Claude finished responding, or session ended |
 
-Built for [Ghostty](https://ghostty.org/), but works in any terminal that supports the standard `OSC 11` escape sequence (iTerm2, kitty, alacritty, wezterm, xterm).
+Built for [Ghostty](https://ghostty.org/), but works in any terminal that supports the `OSC 11` set-background escape sequence: iTerm2, kitty, alacritty, wezterm, xterm. The matching `OSC 111` reset sequence is an XTerm extension with patchier support. If your idle bg doesn't return to default on those terminals, set `CLAUDE_TINT_IDLE` to your terminal's default background hex (see [Configuration](#configuration)).
 
 ## Why
 

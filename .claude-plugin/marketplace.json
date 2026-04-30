@@ -4,7 +4,8 @@
     "name": "Brian Marks"
   },
   "metadata": {
-    "description": "Tints your Ghostty (or any OSC 11-capable terminal) background based on Claude Code's state, so you can tell at a glance whether Claude is working, waiting on you, or asking a question."
+    "description": "Tints your Ghostty (or any OSC 11-capable terminal) background based on Claude Code's state, so you can tell at a glance whether Claude is working, waiting on you, or asking a question.",
+    "version": "0.1.0"
   },
   "plugins": [
     {
