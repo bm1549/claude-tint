@@ -1,0 +1,11 @@
+{
+  "name": "claude-ghostty-tint",
+  "description": "Tints your terminal background based on Claude Code's state. Built for Ghostty, works with any terminal that supports OSC 11 (iTerm2, kitty, alacritty, wezterm, xterm).",
+  "author": {
+    "name": "Brian Marks"
+  },
+  "homepage": "https://github.com/bm1549/claude-ghostty-tint",
+  "repository": "https://github.com/bm1549/claude-ghostty-tint",
+  "license": "MIT",
+  "keywords": ["ghostty", "terminal", "tint", "background", "hooks", "claude-code", "ux"]
+}
