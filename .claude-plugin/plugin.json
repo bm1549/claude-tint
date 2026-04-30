@@ -10,6 +10,7 @@
   "license": "MIT",
   "keywords": ["terminal", "tint", "background", "hooks", "claude-code", "ux", "ghostty", "iterm2", "kitty"],
   "commands": [
-    "./commands/setup.md"
+    "./commands/setup.md",
+    "./commands/reset.md"
   ]
 }
