@@ -53,21 +53,9 @@ For Ghostty's stock dark default (`#282c34`):
 
 ## Known limitation: ESC interrupt
 
-If you press `ESC` to interrupt Claude mid-response, no hook fires. The "active" tint stays until your next message (which retriggers the cycle) or until you reset manually.
+If you press `ESC` to interrupt Claude mid-response, no hook fires. The "active" tint stays until your next message (which retriggers the cycle and resets at end of turn).
 
-Tracked upstream in [anthropics/claude-code#9516](https://github.com/anthropics/claude-code/issues/9516). Add a 👍 if it bothers you.
-
-### Manual reset
-
-Bind a key in your terminal config to reset the background. For Ghostty, in `~/.config/ghostty/config`:
-
-```
-keybind = ctrl+shift+b=reload_config
-```
-
-`reload_config` re-applies your default background. Press `Ctrl+Shift+B` after an interrupt to clear a stuck tint.
-
-For other terminals, run `printf '\033]111\007'` in any shell prompt.
+Tracked upstream in [anthropics/claude-code#9516](https://github.com/anthropics/claude-code/issues/9516). There is no clean Ghostty-side workaround: [#2795](https://github.com/ghostty-org/ghostty/issues/2795) (OSC 11 not cleared by `reset` action) and [#9868](https://github.com/ghostty-org/ghostty/discussions/9868) (`ctrl+shift+*` keybinds swallowed by kitty keyboard protocol) both block the obvious approaches. Add a 👍 if any of these bother you.
 
 ## How it works
 
@@ -78,7 +66,9 @@ The plugin registers hooks for these events:
 | `UserPromptSubmit` | tint active |
 | `PreToolUse(AskUserQuestion)` | tint question |
 | `PostToolUse(AskUserQuestion)` | tint active |
-| `Stop`, `SessionEnd` | tint idle |
+| `Notification(permission_prompt)` | tint question |
+| `Notification(idle_prompt)` | tint idle |
+| `Stop`, `SessionStart`, `SessionEnd` | tint idle |
 
 Each hook runs `hooks/tint.sh` with one argument (`active`, `question`, or `idle`), which writes an `OSC 11` escape sequence directly to `/dev/tty`.
 
