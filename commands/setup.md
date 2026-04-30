@@ -33,7 +33,25 @@ Ask whether the user wants `CLAUDE_TINT_IDLE`:
 
 If they pick explicit, ask for the hex.
 
-## Step 4: Write to settings.json
+## Step 4: Preview each color and confirm
+
+Before writing anything to disk, show the user each color live so they can see how it looks against their actual terminal config. For each of `CLAUDE_TINT_ACTIVE`, `CLAUDE_TINT_QUESTION`, and (only if explicitly set) `CLAUDE_TINT_IDLE`:
+
+1. Emit the color via OSC 11 to `/dev/tty`:
+   ```bash
+   printf '\033]11;<hex>\007' > /dev/tty
+   ```
+2. Ask the user via AskUserQuestion: "Does this <state-name> color look right? Background should now be tinted <hex>." Options: "Looks good", "Pick a different color".
+3. If they want a different color, loop back to step 2 (preset) or step 3 (idle) for that specific value and re-preview. Do not proceed until they confirm.
+
+After each preview, immediately reset the bg to avoid leaving a stuck tint:
+```bash
+printf '\033]111\007' > /dev/tty
+```
+
+If the user chose default (unset) for idle, skip the idle preview entirely.
+
+## Step 5: Write to settings.json
 
 The settings file is JSON, and the existing `env` block may or may not exist. Use Python via Bash to mutate it safely without risking malformed edits:
 
@@ -58,7 +76,7 @@ PY
 
 Substitute the user's actual hex values into the script before running. Do not use the Edit tool here — JSON shape varies and Edit's exact-string match is fragile against missing `env` blocks or trailing-comma differences.
 
-## Step 5: Report
+## Step 6: Report
 
 Summarize what was set, in a table or bullet list. Tell the user that:
 - Changes apply on next Claude Code session start.
