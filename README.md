@@ -1,4 +1,4 @@
-# claude-ghostty-tint
+# claude-tint
 
 A Claude Code plugin that tints your terminal background based on what Claude is doing.
 
@@ -8,7 +8,7 @@ A Claude Code plugin that tints your terminal background based on what Claude is
 | **Question** | `#3e3825` (yellow) | Claude is calling `AskUserQuestion` and waiting on you |
 | **Idle** | terminal default | Claude finished responding, or session ended |
 
-Built for [Ghostty](https://ghostty.org/), but works in any terminal that supports the `OSC 11` set-background escape sequence: iTerm2, kitty, alacritty, wezterm, xterm. The matching `OSC 111` reset sequence is an XTerm extension with patchier support. If your idle bg doesn't return to default on those terminals, set `CLAUDE_TINT_IDLE` to your terminal's default background hex (see [Configuration](#configuration)).
+Works in any terminal that supports the `OSC 11` set-background escape sequence: Ghostty, iTerm2, kitty, alacritty, wezterm, xterm. The matching `OSC 111` reset sequence is an XTerm extension with patchier support. If your idle bg doesn't return to default on those terminals, set `CLAUDE_TINT_IDLE` to your terminal's default background hex (see [Configuration](#configuration)).
 
 ## Why
 
@@ -17,15 +17,17 @@ When you're alt-tabbed away or have a long-running turn, you can't tell at a gla
 ## Install
 
 ```
-/plugin marketplace add bm1549/claude-ghostty-tint
-/plugin install claude-ghostty-tint@claude-ghostty-tint
+/plugin marketplace add bm1549/claude-tint
+/plugin install claude-tint@claude-tint
 ```
 
-That's it. Restart Claude Code (or start a new session) and the tints will activate.
+That's it. Restart Claude Code (or start a new session) and the tints will activate. To change colors interactively, run `/claude-tint:setup`.
 
 ## Configuration
 
-Override any of the three colors via env vars in your Claude Code `settings.json`:
+Run `/claude-tint:setup` to walk through presets and write the right env vars to your `~/.claude/settings.json`.
+
+To configure manually, set any of the three env vars in your Claude Code `settings.json`:
 
 ```json
 {
@@ -44,7 +46,7 @@ Override any of the three colors via env vars in your Claude Code `settings.json
 
 Aim for hex values close to your terminal's default brightness, with one channel pushed up. Going too dark reads as "screen dimmed" rather than "tinted."
 
-For Ghostty's stock dark default (`#282c34`):
+For a typical dark default (e.g. `#282c34`):
 - Subtle blue: `#2a2e4a`
 - Obvious blue: `#2c3260`
 - Subtle red: `#3a1a1a`
@@ -55,7 +57,7 @@ For Ghostty's stock dark default (`#282c34`):
 
 If you press `ESC` to interrupt Claude mid-response, no hook fires. The "active" tint stays until your next message (which retriggers the cycle and resets at end of turn).
 
-Tracked upstream in [anthropics/claude-code#9516](https://github.com/anthropics/claude-code/issues/9516). There is no clean Ghostty-side workaround: [#2795](https://github.com/ghostty-org/ghostty/issues/2795) (OSC 11 not cleared by `reset` action) and [#9868](https://github.com/ghostty-org/ghostty/discussions/9868) (`ctrl+shift+*` keybinds swallowed by kitty keyboard protocol) both block the obvious approaches. Add a 👍 if any of these bother you.
+Tracked upstream in [anthropics/claude-code#9516](https://github.com/anthropics/claude-code/issues/9516). On Ghostty specifically, [#2795](https://github.com/ghostty-org/ghostty/issues/2795) (OSC 11 not cleared by `reset` action) and [#9868](https://github.com/ghostty-org/ghostty/discussions/9868) (`ctrl+shift+*` keybinds swallowed by kitty keyboard protocol) block the obvious manual-reset workarounds. Add a 👍 to any of these if they bother you.
 
 ## How it works
 
@@ -75,7 +77,7 @@ Each hook runs `hooks/tint.sh` with one argument (`active`, `question`, or `idle
 ## Uninstall
 
 ```
-/plugin uninstall claude-ghostty-tint
+/plugin uninstall claude-tint
 ```
 
 If your background gets stuck after uninstalling, run `printf '\033]111\007'` in any terminal pane.

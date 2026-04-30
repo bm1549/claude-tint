@@ -1,19 +1,19 @@
 {
-  "name": "claude-ghostty-tint",
+  "name": "claude-tint",
   "owner": {
     "name": "Brian Marks"
   },
   "metadata": {
-    "description": "Tints your Ghostty (or any OSC 11-capable terminal) background based on Claude Code's state, so you can tell at a glance whether Claude is working, waiting on you, or asking a question.",
+    "description": "Tints your terminal background based on Claude Code's state, so you can tell at a glance whether Claude is working, waiting on you, or asking a question. Works in any terminal that supports OSC 11 (Ghostty, iTerm2, kitty, alacritty, wezterm, xterm).",
     "version": "0.1.0"
   },
   "plugins": [
     {
-      "name": "claude-ghostty-tint",
+      "name": "claude-tint",
       "source": "./",
       "description": "Tints terminal background to reflect Claude Code state: blue while responding, yellow when asking a question, default when idle.",
       "category": "ux",
-      "tags": ["ghostty", "terminal", "background", "tint", "hooks", "ux"]
+      "tags": ["terminal", "background", "tint", "hooks", "ux", "ghostty", "iterm2", "kitty"]
     }
   ]
 }
