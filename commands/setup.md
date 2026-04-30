@@ -9,8 +9,8 @@ You are configuring the `claude-tint` plugin. Walk the user through each of the 
 
 Read `~/.claude/settings.json` and note any existing `CLAUDE_TINT_*` values in the `env` block. These are the starting values for each color (fall back to the plugin defaults if not set):
 
-- `CLAUDE_TINT_ACTIVE` default: `#2a2e4a`
-- `CLAUDE_TINT_QUESTION` default: `#3e3825`
+- `CLAUDE_TINT_ACTIVE` default: `#292d3e`
+- `CLAUDE_TINT_QUESTION` default: `#2e2b27`
 - `CLAUDE_TINT_IDLE` default: unset (reset to terminal default via OSC 111)
 
 Briefly tell the user what's currently configured.
@@ -41,7 +41,7 @@ The active state shows while Claude is working on a response.
 
 Use AskUserQuestion with these options:
 
-- **Subtle blue** — `#2a2e4a` (plugin default, good for dark terminals near `#282c34`)
+- **Subtle blue** — `#292d3e` (plugin default, barely visible on dark terminals near `#282c34`)
 - **Bold blue** — `#2c3260`
 - **Subtle green** — `#1e2a1e`
 - **Subtle purple** — `#2a1e3a`
@@ -64,7 +64,7 @@ The question state shows when Claude is calling `AskUserQuestion` or waiting for
 
 Use AskUserQuestion with these options:
 
-- **Subtle yellow** — `#3e3825` (plugin default)
+- **Subtle yellow** — `#2e2b27` (plugin default, barely warm on dark terminals)
 - **Bold amber** — `#4a3a1a`
 - **Subtle orange** — `#3a2a1e`
 - **Subtle teal** — `#1e3a3a`

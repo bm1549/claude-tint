@@ -4,8 +4,8 @@ A Claude Code plugin that tints your terminal background based on what Claude is
 
 | State | Default tint | When |
 |-------|--------------|------|
-| **Active** | `#2a2e4a` (blue) | You sent a message and Claude is working |
-| **Question** | `#3e3825` (yellow) | Claude is calling `AskUserQuestion` and waiting on you |
+| **Active** | `#292d3e` (blue) | You sent a message and Claude is working |
+| **Question** | `#2e2b27` (yellow) | Claude is calling `AskUserQuestion` and waiting on you |
 | **Idle** | terminal default | Claude finished responding, or session ended |
 
 Works in any terminal that supports the `OSC 11` set-background escape sequence: Ghostty, iTerm2, kitty, alacritty, wezterm, xterm. The matching `OSC 111` reset sequence is an XTerm extension with patchier support. If your idle bg doesn't return to default on those terminals, set `CLAUDE_TINT_IDLE` to your terminal's default background hex (see [Configuration](#configuration)).
@@ -47,11 +47,13 @@ To configure manually, set any of the three env vars in your Claude Code `settin
 Aim for hex values close to your terminal's default brightness, with one channel pushed up. Going too dark reads as "screen dimmed" rather than "tinted."
 
 For a typical dark default (e.g. `#282c34`):
-- Subtle blue: `#2a2e4a`
-- Obvious blue: `#2c3260`
-- Subtle red: `#3a1a1a`
-- Subtle yellow: `#3e3825`
-- Subtle green: `#1a3a25`
+- Subtle blue: `#292d3e`
+- Obvious blue: `#2a2e4a`
+- Very obvious blue: `#2c3260`
+- Subtle yellow: `#2e2b27`
+- Obvious yellow: `#3e3825`
+- Subtle red: `#2e2929`
+- Subtle green: `#292d29`
 
 ## Known limitation: ESC interrupt
 

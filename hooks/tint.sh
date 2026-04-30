@@ -12,10 +12,10 @@ reset_bg() {
 
 case "${1:-}" in
   active)
-    set_bg "${CLAUDE_TINT_ACTIVE:-#2a2e4a}"
+    set_bg "${CLAUDE_TINT_ACTIVE:-#292d3e}"
     ;;
   question)
-    set_bg "${CLAUDE_TINT_QUESTION:-#3e3825}"
+    set_bg "${CLAUDE_TINT_QUESTION:-#2e2b27}"
     ;;
   idle)
     if [ -n "${CLAUDE_TINT_IDLE:-}" ]; then
