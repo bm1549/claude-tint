@@ -42,6 +42,16 @@ To configure manually, set any of the three env vars in your Claude Code `settin
 - Leave `CLAUDE_TINT_IDLE` unset (or empty) to reset to your terminal's default background, which is usually what you want.
 - Set it to a hex color if you want idle to be a specific tint instead of the terminal default.
 
+### Multiplexers and multiple terminals
+
+If you run Claude inside tmux, screen, or another multiplexer, add this to your shell config (`.zshrc` / `.bashrc`):
+
+```sh
+export CLAUDE_TTY=$(tty)
+```
+
+This pins the tint target to the specific terminal pane where you launched Claude, preventing the process-tree heuristic from picking the wrong device in complex session setups.
+
 ### Picking colors
 
 Aim for hex values close to your terminal's default brightness, with one channel pushed up. Going too dark reads as "screen dimmed" rather than "tinted."
@@ -74,7 +84,7 @@ The plugin registers hooks for these events:
 | `Notification(idle_prompt)` | tint idle |
 | `Stop`, `SessionStart`, `SessionEnd` | tint idle |
 
-Each hook runs `hooks/tint.sh` with one argument (`active`, `question`, or `idle`), which writes an `OSC 11` escape sequence directly to `/dev/tty`.
+Each hook runs `hooks/tint.sh` with one argument (`active`, `question`, or `idle`), which writes an `OSC 11` escape sequence to the terminal. Because Claude Code spawns hooks detached from the controlling terminal, the script locates the target device via `$CLAUDE_TTY` (if set) or by walking the process tree to find the parent `claude` process's TTY.
 
 ## Uninstall
 
