@@ -51,6 +51,26 @@
         ]
       }
     ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/tint.sh question"
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/tint.sh idle"
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [
@@ -74,7 +94,6 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "AskUserQuestion",
         "hooks": [
           {
             "type": "command",
