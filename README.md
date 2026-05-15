@@ -5,7 +5,7 @@ A Claude Code plugin that tints your terminal background based on what Claude is
 | State | Default tint | When |
 |-------|--------------|------|
 | **Active** | `#292d3e` (blue) | You sent a message and Claude is working |
-| **Question** | `#2e2b27` (yellow) | Claude is calling `AskUserQuestion` and waiting on you |
+| **Question** | `#2e2b27` (yellow) | Claude is calling `AskUserQuestion` or showing a permission prompt and waiting on you |
 | **Idle** | terminal default | Claude finished responding, or session ended |
 
 Works in any terminal that supports the `OSC 11` set-background escape sequence: Ghostty, iTerm2, kitty, alacritty, wezterm, xterm. The matching `OSC 111` reset sequence is an XTerm extension with patchier support. If your idle bg doesn't return to default on those terminals, set `CLAUDE_TINT_IDLE` to your terminal's default background hex (see [Configuration](#configuration)).
@@ -79,9 +79,11 @@ The plugin registers hooks for these events:
 |------|--------|
 | `UserPromptSubmit` | tint active |
 | `PreToolUse(AskUserQuestion)` | tint question |
-| `PostToolUse(AskUserQuestion)` | tint active |
-| `Notification(permission_prompt)` | tint question |
-| `Notification(idle_prompt)` | tint idle |
+| `PostToolUse` (any tool) | tint active |
+| `PermissionRequest` | tint question |
+| `PermissionDenied` | tint active |
+| `Notification(permission_prompt)` | tint question (compat with Claude Code < 2.0.45) |
+| `Notification(idle_prompt)` | tint idle (compat with Claude Code < 2.0.45) |
 | `Stop`, `SessionStart`, `SessionEnd` | tint idle |
 
 Each hook runs `hooks/tint.sh` with one argument (`active`, `question`, or `idle`), which writes an `OSC 11` escape sequence to the terminal. Because Claude Code spawns hooks detached from the controlling terminal, the script locates the target device via `$CLAUDE_TTY` (if set) or by walking the process tree to find the parent `claude` process's TTY.
